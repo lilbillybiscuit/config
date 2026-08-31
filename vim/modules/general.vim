@@ -28,7 +28,7 @@ set number
 set ruler
 set shiftwidth=4
 set showcmd
-set softtabstop=4
+set softtabstop=-1
 set tabstop=4
 set title
 set undofile

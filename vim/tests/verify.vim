@@ -1,5 +1,6 @@
 let s:root = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
 let g:vim_config_bootstrap_plugins = 0
+let g:vim_config_plug_path = '/tmp/vim-config-no-plug.vim'
 let g:vim_config_undo_dir = '/tmp/vim-config-test-undo'
 let g:vim_config_sglink_root = '/tmp'
 
@@ -9,6 +10,7 @@ call assert_equal(s:root, g:vim_config_root)
 call assert_equal(' ', mapleader)
 call assert_equal(4, &tabstop)
 call assert_equal(4, &shiftwidth)
+call assert_equal(-1, &softtabstop)
 call assert_equal(1, &expandtab)
 call assert_equal(1, &number)
 call assert_equal(0, &modeline)
