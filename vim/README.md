@@ -29,7 +29,8 @@ downloads vim-plug with `curl` when it is missing. Set
 - `modules/ui.vim`: Sonokai, separators, terminal styling, and status lines
 - `modules/nav.vim`: fzf file and text search
 - `modules/nav/neovim.vim`: Neo-tree and Neovim navigation options
-- `modules/code/editing.vim`: pairs, comments, and brace indentation
+- `modules/code/editing.vim`: insert keys, pairs, and comments
+- `modules/code/filetypes.vim`: C-family extension choices
 - `modules/code/lsp.vim`: CoC extensions, completion, diagnostics, and actions
 - `modules/code/neovim.vim`: Neovim's Python formatter host
 - `modules/git.vim`: Git files and commit-at-position behavior

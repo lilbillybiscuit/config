@@ -16,30 +16,8 @@ elseif executable('node')
 endif
 unlet s:hrt_node
 
-function! s:CheckBackspace() abort
-  let l:column = col('.') - 1
-  return !l:column || getline('.')[l:column - 1] =~# '\s'
-endfunction
-
-function! s:Tab() abort
-  if exists('*coc#pum#visible') && coc#pum#visible()
-    return coc#pum#confirm()
-  endif
-  if s:CheckBackspace()
-    return "\<Tab>"
-  endif
-  return exists('*coc#refresh') ? coc#refresh() : "\<Tab>"
-endfunction
-
-function! s:ShiftTab() abort
-  if exists('*coc#pum#visible') && coc#pum#visible()
-    return coc#pum#prev(1)
-  endif
-  return "\<C-h>"
-endfunction
-
 function! s:Refresh() abort
-  return exists('*coc#refresh') ? coc#refresh() : "\<C-Space>"
+  return get(g:, 'did_coc_loaded', 0) ? coc#refresh() : "\<C-Space>"
 endfunction
 
 function! s:ShowDocumentation() abort
@@ -68,8 +46,6 @@ function! s:CocList(arguments) abort
   endif
 endfunction
 
-inoremap <silent><expr> <Tab> <SID>Tab()
-inoremap <silent><expr> <S-Tab> <SID>ShiftTab()
 inoremap <silent><expr> <C-Space> <SID>Refresh()
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
