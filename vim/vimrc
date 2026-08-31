@@ -1,0 +1,25 @@
+" Central entrypoint for Vim and Neovim.
+let g:vim_config_root = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+
+let s:modules = [
+      \ 'modules/general.vim',
+      \ 'modules/plugins.vim',
+      \ 'modules/ui.vim',
+      \ 'modules/nav.vim',
+      \ 'modules/code/editing.vim',
+      \ 'modules/code/lsp.vim',
+      \ 'modules/git.vim',
+      \ 'modules/custom/yank.vim',
+      \ 'modules/custom/hrt.vim',
+      \ ]
+
+for s:module in s:modules
+  execute 'source ' . fnameescape(g:vim_config_root . '/' . s:module)
+endfor
+
+if has('nvim')
+  execute 'source ' . fnameescape(g:vim_config_root . '/modules/nav/neovim.vim')
+  execute 'source ' . fnameescape(g:vim_config_root . '/modules/code/neovim.vim')
+endif
+
+unlet s:modules s:module
