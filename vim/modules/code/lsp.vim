@@ -60,6 +60,7 @@ nmap <silent> gl <Plug>(coc-codelens-action)
 nnoremap <silent> <leader>gs :call <SID>CocList('-I symbols')<CR>
 nnoremap <silent> <leader>d :call <SID>ShowDocumentation()<CR>
 nnoremap <silent> <leader>f :call <SID>CocAction('format')<CR>
+xmap <silent> <leader>f <Plug>(coc-format-selected)
 nnoremap <silent> <leader>ac :call <SID>CocAction('codeAction')<CR>
 nnoremap <silent> <leader>qf :call <SID>CocAction('quickfixes')<CR>
 
