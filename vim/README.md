@@ -52,6 +52,9 @@ downloads vim-plug with `curl` when it is missing. Set
 | `<Space>yy` | Copy through OSC52 |
 | `<Space>gs` | List symbols |
 | `<Space>d` | Show documentation |
+| `<Space>i` | Show the full diagnostic message at the cursor |
+| `<Space>k` | List the buffer's diagnostics in the location list |
+| `[g` / `]g` | Jump to the previous / next diagnostic |
 | `<Space>f` | Format the buffer, or the selection in Visual mode |
 | `<Space>ac` | Run a code action |
 | `<Space>qf` | Apply the current fix |
