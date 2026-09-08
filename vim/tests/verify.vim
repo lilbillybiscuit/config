@@ -32,6 +32,12 @@ call assert_equal(
       \ ['coc-json', 'coc-clangd', 'coc-lists', 'coc-pyright', 'coc-sh', 'coc-yank'],
       \ g:coc_global_extensions)
 
+if has('popupwin') && has('patch-8.2.191')
+  call assert_equal(['window'], keys(g:fzf_layout))
+  call assert_equal(0.9, g:fzf_layout.window.width)
+else
+  call assert_equal({'down': '~40%'}, g:fzf_layout)
+endif
 call assert_match('RunGitFiles', maparg('<Space>g', 'n'))
 call assert_match('Run', maparg('<C-p>', 'n'))
 call assert_match('Run', maparg('<Space>r', 'n'))

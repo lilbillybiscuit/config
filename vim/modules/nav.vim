@@ -3,7 +3,13 @@ if executable('fd')
   let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git'
 endif
 let $FZF_DEFAULT_OPTS = trim($FZF_DEFAULT_OPTS . ' --exact')
-let g:fzf_layout = {'down': '~40%'}
+
+" fzf runs in a centered floating window; older editors fall back to a split.
+if has('nvim-0.4') || (has('popupwin') && has('patch-8.2.191'))
+  let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.7, 'highlight': 'VertSplit'}}
+else
+  let g:fzf_layout = {'down': '~40%'}
+endif
 
 function! s:Run(command, dependency) abort
   let l:name = matchstr(a:command, '^\S\+')
