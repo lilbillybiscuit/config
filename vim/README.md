@@ -27,7 +27,7 @@ downloads vim-plug with `curl` when it is missing. Set
 - `modules/general.vim`: editor-wide options and persistent undo
 - `modules/plugins.vim`: vim-plug bootstrap and plugin declarations
 - `modules/ui.vim`: Sonokai, separators, terminal styling, and status lines
-- `modules/nav.vim`: fzf file and text search
+- `modules/nav.vim`: fzf file and text search in a floating window
 - `modules/nav/neovim.vim`: Neo-tree and Neovim navigation options
 - `modules/code/editing.vim`: insert keys, pairs, and comments
 - `modules/code/filetypes.vim`: C-family extension choices
