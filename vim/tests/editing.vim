@@ -44,6 +44,36 @@ call assert_equal('', maparg('}', 'i'))
 call assert_match('Enter', maparg('<CR>', 'i'))
 call assert_match('Tab', maparg('<Tab>', 'i'))
 call assert_match('ShiftTab', maparg('<S-Tab>', 'i'))
+bwipeout!
+
+" With the real auto-pairs, Enter between paired braces must leave the closing
+" brace aligned with the statement rather than with a continuation line, and a
+" typed } must still skip over the auto-inserted one.
+let s:auto_pairs = empty($VIM_CONFIG_TEST_AUTO_PAIRS)
+      \ ? g:vim_config_plugin_home . '/auto-pairs'
+      \ : $VIM_CONFIG_TEST_AUTO_PAIRS
+if filereadable(s:auto_pairs . '/plugin/auto-pairs.vim')
+  execute 'set runtimepath^=' . fnameescape(s:auto_pairs)
+  runtime plugin/auto-pairs.vim
+
+  execute 'edit ' . fnameescape(tempname() . '.cpp')
+  call assert_equal(1, get(b:, 'autopairs_enabled', 0))
+  call feedkeys("iif (some_long_condition &&\<CR>another_condition) {\<CR>return 1;\<Esc>", 'xt')
+  call assert_equal([
+        \ 'if (some_long_condition &&',
+        \ '        another_condition) {',
+        \ '    return 1;',
+        \ '}',
+        \ ], getline(1, '$'))
+  bwipeout!
+
+  execute 'edit ' . fnameescape(tempname() . '.cpp')
+  call feedkeys("iint a[] = {1};\<Esc>", 'xt')
+  call assert_equal('int a[] = {1};', getline(1))
+  bwipeout!
+else
+  echom 'auto-pairs not found at ' . s:auto_pairs . '; skipping the paired-brace check'
+endif
 
 if !empty(v:errors)
   call writefile(v:errors, '/tmp/vim-config-editing-test-errors')
