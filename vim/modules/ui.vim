@@ -29,12 +29,29 @@ endfunction
 
 call s:ApplyHighlights()
 
+" Like coc#status(), but also counts information and hint diagnostics and
+" leads with the enclosing symbol. b:coc_current_function only updates when
+" coc.preferences.currentFunctionSymbolAutoUpdate is enabled in coc-settings.
 function! VimConfigCocStatus() abort
   if !get(g:, 'did_coc_loaded', 0)
     return ''
   endif
-  let l:status = trim(coc#status())
-  return empty(l:status) ? '' : l:status . ' '
+  let l:parts = []
+  let l:function = trim(get(b:, 'coc_current_function', ''))
+  if !empty(l:function)
+    call add(l:parts, l:function)
+  endif
+  let l:info = get(b:, 'coc_diagnostic_info', {})
+  for [l:sign, l:key] in [['E', 'error'], ['W', 'warning'], ['I', 'information'], ['H', 'hint']]
+    if get(l:info, l:key, 0) > 0
+      call add(l:parts, l:sign . l:info[l:key])
+    endif
+  endfor
+  let l:servers = trim(get(g:, 'coc_status', ''))
+  if !empty(l:servers)
+    call add(l:parts, l:servers)
+  endif
+  return empty(l:parts) ? '' : join(l:parts, ' ') . ' '
 endfunction
 
 let &statusline = '%#StatusLine# %<%{expand(''%:~:h'')}/'

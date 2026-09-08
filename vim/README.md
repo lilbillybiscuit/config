@@ -64,8 +64,11 @@ downloads vim-plug with `curl` when it is missing. Set
 | `<Space>gH` | Diffview history for the repository in Neovim |
 | `<Space>gq` | Close Diffview in Neovim |
 
-The status line shows CoC's status text (language server state and diagnostic
-counts) on the right when CoC is loaded. In Neovim, the active window's
+When CoC is loaded, the right side of the status line shows the enclosing
+symbol, diagnostic counts (`E` `W` `I` `H`), and the language servers' status
+text. The enclosing symbol needs
+`"coc.preferences.currentFunctionSymbolAutoUpdate": true` in
+`coc-settings.json`; without it that part stays empty. In Neovim, the active window's
 separators are drawn brighter than the others. Closing a modified buffer asks
 for confirmation instead of failing.
 
