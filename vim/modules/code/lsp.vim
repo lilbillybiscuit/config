@@ -46,6 +46,14 @@ function! s:CocList(arguments) abort
   endif
 endfunction
 
+function! s:Diagnostics() abort
+  if exists(':CocDiagnostics') == 2
+    CocDiagnostics
+  else
+    echohl WarningMsg | echom '[vim-config] CoC is not available' | echohl None
+  endif
+endfunction
+
 inoremap <silent><expr> <C-Space> <SID>Refresh()
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -56,6 +64,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gl <Plug>(coc-codelens-action)
+nmap <silent> <leader>i <Plug>(coc-diagnostic-info)
+nnoremap <silent> <leader>k :call <SID>Diagnostics()<CR>
 
 nnoremap <silent> <leader>gs :call <SID>CocList('-I symbols')<CR>
 nnoremap <silent> <leader>d :call <SID>ShowDocumentation()<CR>

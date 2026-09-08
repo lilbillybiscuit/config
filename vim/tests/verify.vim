@@ -35,6 +35,8 @@ call assert_match('OscYankLine', maparg('<Space>yy', 'n'))
 call assert_match('ShowDocumentation', maparg('<Space>d', 'n'))
 call assert_match('CocAction', maparg('<Space>f', 'n'))
 call assert_match('coc-format-selected', maparg('<Space>f', 'x'))
+call assert_match('coc-diagnostic-info', maparg('<Space>i', 'n'))
+call assert_match('Diagnostics', maparg('<Space>k', 'n'))
 call assert_equal('', maparg('<Space>gd', 'n'))
 
 execute 'edit ' . fnameescape('/tmp/vim config sample.py')
