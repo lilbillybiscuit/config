@@ -49,6 +49,7 @@ if exists('*plug#begin')
     Plug 'nvim-lua/plenary.nvim'
     Plug 'MunifTanjim/nui.nvim'
     Plug 'nvim-tree/nvim-web-devicons'
+    Plug 'sindrets/diffview.nvim'
   endif
 
   call plug#end()

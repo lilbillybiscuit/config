@@ -21,6 +21,7 @@ endfor
 if has('nvim')
   execute 'source ' . fnameescape(g:vim_config_root . '/modules/nav/neovim.vim')
   execute 'source ' . fnameescape(g:vim_config_root . '/modules/code/neovim.vim')
+  execute 'source ' . fnameescape(g:vim_config_root . '/modules/git/neovim.vim')
 endif
 
 unlet s:modules s:module
