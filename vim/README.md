@@ -56,8 +56,8 @@ hands the result to CoC through `g:coc_user_config`.
 - `modules/general.vim`: editor-wide options, persistent undo, and the
   `VimConfigRun()` helper for optional dependencies
 - `modules/plugins.vim`: vim-plug bootstrap and plugin declarations
-- `modules/ui.vim`: Catppuccin Frappe, mode-colored status line, tab line,
-  and active-window indicators
+- `modules/ui.vim`: Catppuccin Frappe, lightline status and tab lines, and
+  active-window indicators
 - `modules/nav.vim`: fzf file, buffer, history, and text search
 - `modules/nav/neovim.vim`: Neo-tree and Neovim navigation options
 - `modules/code/editing.vim`: insert keys, pairs, and comments
@@ -103,9 +103,11 @@ hands the result to CoC through `g:coc_user_config`.
 
 ## Indicators
 
-- The status line starts with the mode, colored per mode, in the focused
-  window only. When CoC is loaded, the right side shows the enclosing symbol,
-  diagnostic counts (`E` `W` `I` `H`), and the language servers' status.
+- lightline draws the status and tab lines with Catppuccin's lightline theme:
+  the mode, colored per mode, in the focused window, and, when CoC is loaded,
+  the enclosing symbol, diagnostic counts (`E` `W` `I` `H`), and the language
+  servers' status. `ui.vim` sets no colors of its own; its few highlights link
+  to the color scheme's groups.
 - Neovim uses one status line for all windows and a title bar per window; the
   focused window's title bar is highlighted.
 - Only the focused window draws the cursor line. In Neovim, its separators are

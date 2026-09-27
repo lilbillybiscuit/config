@@ -28,6 +28,7 @@ if exists('*plug#begin')
   call plug#begin(g:vim_config_plugin_home)
 
   Plug 'catppuccin/vim', {'as': 'catppuccin'}
+  Plug 'itchyny/lightline.vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
   Plug 'junegunn/fzf.vim'

@@ -15,20 +15,19 @@ call assert_equal(1, &expandtab)
 call assert_equal(1, &number)
 call assert_equal(0, &modeline)
 call assert_equal(1, &confirm)
-call assert_match('VimConfigCocStatus', &statusline)
+call assert_equal('VimConfigCocStatus', g:lightline.component_function.coc)
 call assert_equal('', VimConfigCocStatus())
 let g:did_coc_loaded = 1
 call assert_equal('', VimConfigCocStatus())
 let b:coc_diagnostic_info = {'error': 1, 'warning': 0, 'information': 2, 'hint': 3}
 let g:coc_status = ' clangd: idle '
 let b:coc_current_function = 'main'
-call assert_equal('main E1 I2 H3 clangd: idle ', VimConfigCocStatus())
+call assert_equal('main E1 I2 H3 clangd: idle', VimConfigCocStatus())
 unlet g:did_coc_loaded g:coc_status b:coc_diagnostic_info b:coc_current_function
 call assert_equal(1, exists('#vim_config_ui#User#CocStatusChange'))
 call assert_equal(1, hlexists('VimConfigActiveSeparator'))
-call assert_equal(1, hlexists('VimConfigModeInsert'))
-call assert_match('VimConfigMode()', &statusline)
-call assert_match('^%#VimConfigMode\a\+# [A-Z-]\+ %#StatusLine# $', VimConfigMode())
+" No hex colors outside the color scheme: highlights only link to its groups.
+call assert_notmatch('#\x\{6}', join(readfile(s:root . '/modules/ui.vim'), "\n"))
 call assert_equal(0, &showmode)
 call assert_equal([1, 1, 1, 1], [&ignorecase, &smartcase, &incsearch, &hlsearch])
 call assert_equal('yes', &signcolumn)
