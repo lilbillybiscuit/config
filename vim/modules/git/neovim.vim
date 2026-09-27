@@ -8,18 +8,7 @@ if ok then
 end
 EOF
 
-function! s:Diffview(command) abort
-  let l:name = matchstr(a:command, '^\S\+')
-  if exists(':' . l:name) == 2
-    execute a:command
-  else
-    echohl WarningMsg
-    echom '[vim-config] diffview.nvim is not available'
-    echohl None
-  endif
-endfunction
-
-nnoremap <silent> <leader>gd :call <SID>Diffview('DiffviewOpen')<CR>
-nnoremap <silent> <leader>gh :call <SID>Diffview('DiffviewFileHistory %')<CR>
-nnoremap <silent> <leader>gH :call <SID>Diffview('DiffviewFileHistory')<CR>
-nnoremap <silent> <leader>gq :call <SID>Diffview('DiffviewClose')<CR>
+nnoremap <silent> <leader>gd :call VimConfigRun('DiffviewOpen', 'diffview.nvim')<CR>
+nnoremap <silent> <leader>gh :call VimConfigRun('DiffviewFileHistory %', 'diffview.nvim')<CR>
+nnoremap <silent> <leader>gH :call VimConfigRun('DiffviewFileHistory', 'diffview.nvim')<CR>
+nnoremap <silent> <leader>gq :call VimConfigRun('DiffviewClose', 'diffview.nvim')<CR>

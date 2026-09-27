@@ -16,14 +16,4 @@ if ok then
 end
 EOF
 
-function! s:ToggleTree() abort
-  if exists(':Neotree') == 2
-    Neotree toggle
-  else
-    echohl WarningMsg
-    echom '[vim-config] neo-tree is not available'
-    echohl None
-  endif
-endfunction
-
-nnoremap <silent> <leader>e :call <SID>ToggleTree()<CR>
+nnoremap <silent> <leader>e :call VimConfigRun('Neotree toggle', 'neo-tree')<CR>

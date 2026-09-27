@@ -1,20 +1,20 @@
-" CoC completion, diagnostics, language actions, and extensions.
-let g:coc_global_extensions = [
-      \ 'coc-json',
-      \ 'coc-clangd',
-      \ 'coc-lists',
-      \ 'coc-pyright',
-      \ 'coc-sh',
-      \ 'coc-yank',
-      \ ]
+" CoC adapter: turns lsp/defaults.vim, the profile's settings, and
+" g:vim_config_paths into CoC's configuration, then maps language actions.
+let g:coc_global_extensions = uniq(sort(copy(g:vim_config_coc_extensions)))
 
-let s:work_node = '/path/to/node'
-if executable(s:work_node)
-  let g:coc_node_path = get(g:, 'coc_node_path', s:work_node)
-elseif executable('node')
-  let g:coc_node_path = get(g:, 'coc_node_path', exepath('node'))
+let s:settings = copy(g:vim_config_coc_settings)
+for [s:tool, s:key] in [['clangd', 'clangd.path'], ['python3', 'python.pythonPath'],
+      \ ['black', 'python.formatting.blackPath']]
+  if !empty(g:vim_config_paths[s:tool]) && !has_key(s:settings, s:key)
+    let s:settings[s:key] = g:vim_config_paths[s:tool]
+  endif
+endfor
+let g:coc_user_config = s:settings
+unlet s:settings s:tool s:key
+
+if !empty(g:vim_config_paths.node)
+  let g:coc_node_path = g:vim_config_paths.node
 endif
-unlet s:work_node
 
 function! s:Refresh() abort
   return get(g:, 'did_coc_loaded', 0) ? coc#refresh() : "\<C-Space>"
@@ -23,35 +23,13 @@ endfunction
 function! s:ShowDocumentation() abort
   if index(['vim', 'help'], &filetype) >= 0
     execute 'help ' . expand('<cword>')
-  elseif exists('*CocActionAsync')
-    call CocActionAsync('doHover')
   else
-    echohl WarningMsg | echom '[vim-config] CoC is not available' | echohl None
+    call VimConfigRun("call CocActionAsync('doHover')", 'CoC', '*CocActionAsync')
   endif
 endfunction
 
 function! s:CocAction(action) abort
-  if exists('*CocActionAsync')
-    call CocActionAsync(a:action)
-  else
-    echohl WarningMsg | echom '[vim-config] CoC is not available' | echohl None
-  endif
-endfunction
-
-function! s:CocList(arguments) abort
-  if exists(':CocList') == 2
-    execute 'CocList ' . a:arguments
-  else
-    echohl WarningMsg | echom '[vim-config] CoC is not available' | echohl None
-  endif
-endfunction
-
-function! s:Diagnostics() abort
-  if exists(':CocDiagnostics') == 2
-    CocDiagnostics
-  else
-    echohl WarningMsg | echom '[vim-config] CoC is not available' | echohl None
-  endif
+  call VimConfigRun('call CocActionAsync(' . string(a:action) . ')', 'CoC', '*CocActionAsync')
 endfunction
 
 inoremap <silent><expr> <C-Space> <SID>Refresh()
@@ -65,9 +43,10 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gl <Plug>(coc-codelens-action)
 nmap <silent> <leader>i <Plug>(coc-diagnostic-info)
-nnoremap <silent> <leader>k :call <SID>Diagnostics()<CR>
+nmap <silent> <leader>R <Plug>(coc-rename)
+nnoremap <silent> <leader>k :call VimConfigRun('CocDiagnostics', 'CoC')<CR>
 
-nnoremap <silent> <leader>gs :call <SID>CocList('-I symbols')<CR>
+nnoremap <silent> <leader>gs :call VimConfigRun('CocList -I symbols', 'CoC')<CR>
 nnoremap <silent> <leader>d :call <SID>ShowDocumentation()<CR>
 nnoremap <silent> <leader>f :call <SID>CocAction('format')<CR>
 xmap <silent> <leader>f <Plug>(coc-format-selected)

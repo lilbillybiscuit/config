@@ -1,5 +1,28 @@
 " Central entrypoint for Vim and Neovim.
+"
+" Load order:
+"   1. paths.vim, then <profile>/paths.vim      external binaries
+"   2. lsp/defaults.vim, then <profile>/settings.vim
+"   3. modules/ (and modules/*/neovim.vim in Neovim)
+"   4. <profile>/modules/*.vim
+"   5. g:vim_config_local_file, for one machine's overrides
+"
+" Choose a profile by setting g:vim_config_profile_dir before sourcing this
+" file. Without one, only the public defaults load.
 let g:vim_config_root = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let s:profile = expand(get(g:, 'vim_config_profile_dir', ''))
+let s:local = expand(get(g:, 'vim_config_local_file', '~/.vim/local.vim'))
+
+function! s:SourceIfReadable(path) abort
+  if !empty(a:path) && filereadable(a:path)
+    execute 'source ' . fnameescape(a:path)
+  endif
+endfunction
+
+execute 'source ' . fnameescape(g:vim_config_root . '/paths.vim')
+call s:SourceIfReadable(s:profile . '/paths.vim')
+execute 'source ' . fnameescape(g:vim_config_root . '/lsp/defaults.vim')
+call s:SourceIfReadable(s:profile . '/settings.vim')
 
 let s:modules = [
       \ 'modules/general.vim',
@@ -10,18 +33,25 @@ let s:modules = [
       \ 'modules/code/editing.vim',
       \ 'modules/code/lsp.vim',
       \ 'modules/git.vim',
-      \ 'modules/custom/yank.vim',
-      \ 'modules/custom/work.vim',
+      \ 'modules/yank.vim',
       \ ]
+if has('nvim')
+  call extend(s:modules, [
+        \ 'modules/nav/neovim.vim',
+        \ 'modules/git/neovim.vim',
+        \ ])
+endif
 
 for s:module in s:modules
   execute 'source ' . fnameescape(g:vim_config_root . '/' . s:module)
 endfor
 
-if has('nvim')
-  execute 'source ' . fnameescape(g:vim_config_root . '/modules/nav/neovim.vim')
-  execute 'source ' . fnameescape(g:vim_config_root . '/modules/code/neovim.vim')
-  execute 'source ' . fnameescape(g:vim_config_root . '/modules/git/neovim.vim')
+if !empty(s:profile)
+  for s:module in sort(glob(s:profile . '/modules/*.vim', 0, 1))
+    execute 'source ' . fnameescape(s:module)
+  endfor
 endif
+call s:SourceIfReadable(s:local)
 
-unlet s:modules s:module
+unlet! s:modules s:module
+unlet s:profile s:local
