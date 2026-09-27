@@ -6,13 +6,13 @@ the directory from which the editor starts.
 
 ## Install
 
-Run `../install.sh` for the public config alone, or `../install.sh
-~/config-work` to add a private profile. It writes `~/.vimrc` and
+Run `../install.sh` for the public config alone, or `../install.sh work` to
+add the `work/` profile. It writes `~/.vimrc` and
 `~/.config/nvim/init.vim` (plus the tmux and Ghostty entrypoints). The Vim
 ones look like:
 
 ```vim
-let g:vim_config_profile_dir = '/Users/you/config-work/vim'   " optional
+let g:vim_config_profile_dir = '/Users/you/config/work/vim'   " optional
 source /Users/you/config/vim/vimrc
 ```
 
@@ -26,7 +26,8 @@ fzf, ripgrep, fd, and bat should be on `PATH` for search and previews.
 Each layer overrides the one before it:
 
 1. **Public defaults** in this directory.
-2. **Profile** (`g:vim_config_profile_dir`), such as a private work repository:
+2. **Profile** (`g:vim_config_profile_dir`), such as `work/`; its
+   `*.local.vim` files are git-ignored for employer-specific details:
    - `paths.vim` overrides entries of `g:vim_config_paths`
    - `settings.vim` changes `g:vim_config_coc_extensions` and
      `g:vim_config_coc_settings`

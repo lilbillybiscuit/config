@@ -2,7 +2,7 @@
 # Point this machine's Vim, Neovim, tmux, and Ghostty at this repository.
 #
 #   ./install.sh                  public config only
-#   ./install.sh ~/config-work    public config plus a private profile
+#   ./install.sh work             public config plus the work profile
 #
 # Each entrypoint file is rewritten; an existing one that differs is kept as
 # <file>.bak first.
@@ -11,6 +11,7 @@ set -eu
 repo=$(cd "$(dirname "$0")" && pwd)
 profile=${1:-}
 if [ -n "$profile" ]; then
+  [ -d "$profile" ] || profile="$repo/$profile"
   profile=$(cd "$profile" && pwd)
 fi
 

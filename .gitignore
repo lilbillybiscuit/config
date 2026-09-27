@@ -1,0 +1,6 @@
+.DS_Store
+
+# Employer- or machine-specific files on work computers. Keep internal paths,
+# hostnames, and URLs in these, never in tracked files.
+work/**/*.local.vim
+work/**/*.local.conf
