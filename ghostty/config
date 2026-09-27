@@ -1,0 +1,13 @@
+shell-integration-features = ssh-env,ssh-terminfo
+
+keybind = super+g>h=goto_split:left
+keybind = super+g>l=goto_split:right
+keybind = super+g>k=goto_split:up
+keybind = super+g>j=goto_split:down
+
+cursor-color = #ff0055
+
+theme = Catppuccin Frappe
+
+custom-shader = shaders/cursor_trail.glsl
+custom-shader-animation = true
