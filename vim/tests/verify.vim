@@ -22,7 +22,10 @@ call assert_equal('', VimConfigCocStatus())
 let b:coc_diagnostic_info = {'error': 1, 'warning': 0, 'information': 2, 'hint': 3}
 let g:coc_status = ' clangd: idle '
 let b:coc_current_function = 'main'
-call assert_equal('main E1 I2 H3 clangd: idle', VimConfigCocStatus())
+call assert_equal('main E1 I2 H3', VimConfigCocStatus())
+call assert_equal('clangd: idle', VimConfigServers())
+call assert_equal([2, 2], [&laststatus, &showtabline])
+call assert_equal([['tabs']], g:lightline.tabline.left)
 unlet g:did_coc_loaded g:coc_status b:coc_diagnostic_info b:coc_current_function
 call assert_equal(1, exists('#vim_config_ui#User#CocStatusChange'))
 call assert_equal(1, hlexists('VimConfigActiveSeparator'))

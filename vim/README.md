@@ -105,11 +105,12 @@ hands the result to CoC through `g:coc_user_config`.
 
 - lightline draws the status and tab lines with Catppuccin's lightline theme:
   the mode, colored per mode, in the focused window, and, when CoC is loaded,
-  the enclosing symbol, diagnostic counts (`E` `W` `I` `H`), and the language
-  servers' status. `ui.vim` sets no colors of its own; its few highlights link
+  the enclosing symbol and diagnostic counts (`E` `W` `I` `H`). `ui.vim` sets no colors of its own; its few highlights link
   to the color scheme's groups.
-- Neovim uses one status line for all windows and a title bar per window; the
-  focused window's title bar is highlighted.
+- Each window's status line sits at its bottom and covers that file. The top
+  bar is always visible and covers the whole editor: tabs on the left, and
+  the language servers' status, the Git branch, and the working directory on
+  the right. tmux's status bar is at the top too.
 - Only the focused window draws the cursor line. In Neovim, its separators are
   also brighter.
 - The sign column always shows, so diagnostics and coc-git's change markers
