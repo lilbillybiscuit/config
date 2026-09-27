@@ -12,6 +12,9 @@ endif
 " Preview on the right (colored when bat is installed); ctrl-/ toggles it.
 let g:fzf_vim = {'preview_window': ['right,50%', 'ctrl-/']}
 
+" At the edge of the tmux window, Ctrl-h/j/k/l stops instead of wrapping.
+let g:tmux_navigator_no_wrap = 1
+
 nnoremap <silent> <C-p> :call VimConfigRun('Files', 'fzf.vim')<CR>
 nnoremap <silent> <leader>b :call VimConfigRun('Buffers', 'fzf.vim')<CR>
 nnoremap <silent> <leader>l :call VimConfigRun('BLines', 'fzf.vim')<CR>
