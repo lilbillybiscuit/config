@@ -4,3 +4,8 @@
 # hostnames, and URLs in these, never in tracked files.
 work/**/*.local.vim
 work/**/*.local.conf
+
+# Private shell paths and app integrations.
+zsh/paths.local.zsh
+zsh/local.zsh
+work/**/*.local.zsh

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Point this machine's Vim, Neovim, tmux, and Ghostty at this repository.
+# Point this machine's Zsh, Vim, Neovim, tmux, and Ghostty at this repository.
 #
 #   ./install.sh                  public config only
 #   ./install.sh work             public config plus the work profile
@@ -27,6 +27,13 @@ write() {
   mv "$tmp" "$target"
   echo "wrote $target"
 }
+
+{
+  if [ -n "$profile" ]; then
+    printf "ZSH_CONFIG_PROFILE_DIR='%s/zsh'\n" "$profile"
+  fi
+  printf "source '%s/zsh/zshrc'\n" "$repo"
+} | write "$HOME/.zshrc"
 
 vim_entry() {
   if [ -n "$profile" ]; then

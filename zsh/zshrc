@@ -1,0 +1,11 @@
+# Source this file from ~/.zshrc. Paths are relative to this file, not $PWD.
+[[ -o interactive ]] || return
+typeset -g ZSH_CONFIG_DIR=${${(%):-%N}:A:h}
+source "$ZSH_CONFIG_DIR/paths.zsh"
+source "$ZSH_CONFIG_DIR/modules/options.zsh"
+source "$ZSH_CONFIG_DIR/modules/oh-my-zsh.zsh"
+source "$ZSH_CONFIG_DIR/modules/tools.zsh"
+source "$ZSH_CONFIG_DIR/modules/aliases.zsh"
+source "$ZSH_CONFIG_DIR/modules/prompt.zsh"
+[[ ! -r "$ZSH_CONFIG_DIR/local.zsh" ]] || source "$ZSH_CONFIG_DIR/local.zsh"
+[[ -z ${ZSH_CONFIG_PROFILE_DIR:-} || ! -r "$ZSH_CONFIG_PROFILE_DIR/config.zsh" ]] || source "$ZSH_CONFIG_PROFILE_DIR/config.zsh"
